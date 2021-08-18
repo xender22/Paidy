@@ -109,24 +109,19 @@ namespace Paidy
             try
             {
                 int functionCode = 0; // the functionality option
-                string status = "y"; // Using status to avoing the need to run the program again for each function
+                bool running = true; // Using status to avoing the need to run the program again for each function
               
-                while (status == "y")
+                while (running)
                 {
                     switch (functionCode)
                     {
-                        case -1:
-                            Console.WriteLine("Do you want to run the program again? 'y' for yes and any other key for no.");
-                            status = Console.ReadLine();
-                            functionCode = 0;
-                            break;
-
                         case 0:
                             Console.WriteLine("Please select your functionality: " +
                                 "\n 1. Number Suffix" +
                                 "\n 2. Number of Sundays in a date range" +
                                 "\n 3. Obfuscation of either email or telephone" +
-                                "\n(type: '1, 2 or 3' in console)");
+                                "\n 4. To exit the application" +
+                                "\n(type: '1, 2, 3 or 4' in console)" + "\n");
                             int.TryParse(Console.ReadLine(), out functionCode);
                             break;
 
@@ -134,8 +129,8 @@ namespace Paidy
                             int number;
                             Console.WriteLine("Please enter your number (intiger)");
                             int.TryParse(Console.ReadLine(), out number);
-                            Console.WriteLine(GetNumberSuffix(number));
-                            functionCode = -1;
+                            Console.WriteLine(GetNumberSuffix(number) + "\n");
+                            functionCode = 0;
                             break;
 
                         case 2:
@@ -143,18 +138,22 @@ namespace Paidy
                             DateTime startDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
                             Console.WriteLine("And the end date:");
                             DateTime endDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                            Console.WriteLine(GetNumberOfSundays(startDate, endDate));
-                            functionCode = -1;
+                            Console.WriteLine(GetNumberOfSundays(startDate, endDate) + "\n");
+                            functionCode = 0;
                             break;
 
                         case 3:
                             Console.WriteLine("Please enter telephone or email to obfuscate.");
-                            Console.WriteLine(GetObfuscateTelOrEmail(Console.ReadLine()));
-                            functionCode = -1;
+                            Console.WriteLine( GetObfuscateTelOrEmail(Console.ReadLine()) + "\n");
+                            functionCode = 0;
+                            break;
+
+                        case 4:
+                            running = false;
                             break;
 
                         default:
-                            Console.WriteLine("Invalid input, try again using a number ranged 1-3");
+                            Console.WriteLine("Invalid input, try again using a number ranged 1-3" + "\n");
                             functionCode = 0;
                             break;
                     }
